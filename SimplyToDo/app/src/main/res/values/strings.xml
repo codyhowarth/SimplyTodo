@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">SimplyToDo</string>
+
+    <string name="Welcome">Welcome to SimplyToDo! Tap the plus button to add a new ToDo item.</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_history">History</string>
+    <string name="title_activity_to_do_list">ToDoList</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_add_to_do">AddToDo</string>
+    <string name="What_should">What should you be doing right now?</string>
+    <string name="What_time">When should this be done by? (Optional)</string>
+    <string name="Duedate">Due date:</string>
+    <string name="title_activity_main_activity_alternate">MainActivityAlternate</string>
+</resources>
