@@ -15,11 +15,14 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.support.v4.app.FragmentActivity;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,6 +36,7 @@ public class AddToDo extends FragmentActivity {
     public static int input_month;
     public static int input_day;
     public static int input_year;
+    public static boolean date_chosen = false;
 
 
 
@@ -40,6 +44,7 @@ public class AddToDo extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_do);
+        date_chosen = false;
 
     }
 
@@ -124,6 +129,7 @@ public class AddToDo extends FragmentActivity {
     public void showTimePickerDialog(View view) {
         android.app.DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getFragmentManager(), "timePicker");
+        date_chosen = true;
     }
 
     public static void setDueDate(Activity activity) {
@@ -135,8 +141,51 @@ public class AddToDo extends FragmentActivity {
     }
 
     public void gotoListView(View view) {
-        Intent intent = new Intent(AddToDo.this, MainActivityAlternate.class);
+
+        //Get Info to save
+        EditText edittext_todoitem = (EditText) findViewById(R.id.editText1);
+        String todoStr = edittext_todoitem.getText().toString();
+        todoStr = todoStr + ":";
+
+        String due_date;
+
+        if (!date_chosen) {
+            due_date = "|";
+        } else {
+            Calendar input_date = new GregorianCalendar(input_year, input_month, input_day, input_hour, input_minute);
+            Date time = input_date.getTime();
+            due_date = DateFormat.getDateTimeInstance().format(time);
+            due_date = due_date + "|";
+        }
+
+
+        // Save TodoItem to file
+        // 2 Cases: Files exists, file doesn't yet exist
+
+        String saveFilename = "ToDoListItems";
+       // File saveFile = new File(this.getFilesDir(), saveFilename);
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(saveFilename, this.MODE_APPEND | this.MODE_PRIVATE);
+            outputStream.write(todoStr.getBytes());
+            outputStream.write(due_date.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+        Intent intent = new Intent(AddToDo.this, ToDoList.class);
         startActivity(intent);
+    }
+
+    // Override the back button so it doesn't go back to adding a todo item
+    @Override
+    public void onBackPressed() {
     }
 
 
