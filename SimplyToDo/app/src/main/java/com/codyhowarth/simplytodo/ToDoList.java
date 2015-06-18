@@ -1,17 +1,27 @@
 package com.codyhowarth.simplytodo;
 
+import android.app.ListActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class ToDoList extends ActionBarActivity {
+public class ToDoList extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do_list);
+
+        // Initialize the array adapter
+        ArrayAdapter<Model> adapter = new InteractiveArrayAdapter(this,
+                getModel());
+        setListAdapter(adapter);
     }
 
     @Override
@@ -34,5 +44,78 @@ public class ToDoList extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private List<Model> getModel() {
+        List<Model> list = new ArrayList<Model>();
+        list.add(get("Linux"));
+        list.add(get("Windows7"));
+        list.add(get("Suse"));
+        list.add(get("Eclipse"));
+        list.add(get("Ubuntu"));
+        list.add(get("Solaris"));
+        list.add(get("Android"));
+        list.add(get("iPhone"));
+        list.add(get("Linux"));
+        list.add(get("Windows7"));
+        list.add(get("Suse"));
+        list.add(get("Eclipse"));
+        list.add(get("Ubuntu"));
+        list.add(get("Solaris"));
+        list.add(get("Android"));
+        list.add(get("iPhone"));
+        list.add(get("Linux"));
+        list.add(get("Windows7"));
+        list.add(get("Suse"));
+        list.add(get("Eclipse"));
+        list.add(get("Ubuntu"));
+        list.add(get("Solaris"));
+        list.add(get("Android"));
+        list.add(get("iPhone"));
+        list.add(get("Linux"));
+        list.add(get("Windows7"));
+        list.add(get("Suse"));
+        list.add(get("Eclipse"));
+        list.add(get("Ubuntu"));
+        list.add(get("Solaris"));
+        list.add(get("Android"));
+        list.add(get("iPhone"));
+        list.add(get("Linux"));
+        list.add(get("Windows7"));
+        list.add(get("Suse"));
+        list.add(get("Eclipse"));
+        list.add(get("Ubuntu"));
+        list.add(get("Solaris"));
+        list.add(get("Android"));
+        list.add(get("iPhone"));
+        list.add(get("Linux"));
+        list.add(get("Windows7"));
+        list.add(get("Suse"));
+        list.add(get("Eclipse"));
+        list.add(get("Ubuntu"));
+        list.add(get("Solaris"));
+        list.add(get("Android"));
+        list.add(get("iPhone"));
+        list.add(get("Linux"));
+        list.add(get("Windows7"));
+        list.add(get("Suse"));
+        list.add(get("Eclipse"));
+        list.add(get("Ubuntu"));
+        list.add(get("Solaris"));
+        list.add(get("Android"));
+        list.add(get("iPhone"));
+        // Initially select one of the items
+        list.get(1).setSelected(true);
+        return list;
+    }
+
+    private Model get(String s) {
+        return new Model(s);
+    }
+
+    // Override the back button so it doesn't go back to adding a todoitem
+    @Override
+    public void onBackPressed() {
     }
 }
