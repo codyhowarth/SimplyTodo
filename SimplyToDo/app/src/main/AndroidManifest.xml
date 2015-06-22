@@ -17,16 +17,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ToDoList"
-            android:label="@string/title_activity_to_do_list" >
-        </activity>
-        <activity
             android:name=".AddToDo"
+            android:parentActivityName=".MainActivity"
             android:label="@string/title_activity_add_to_do" >
-        </activity>
-        <activity
-            android:name=".MainActivityAlternate"
-            android:label="@string/title_activity_main_activity_alternate" >
+
         </activity>
     </application>
 

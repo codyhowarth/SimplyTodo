@@ -179,7 +179,7 @@ public class AddToDo extends FragmentActivity {
 
 
 
-        Intent intent = new Intent(AddToDo.this, ToDoList.class);
+        Intent intent = new Intent(AddToDo.this, MainActivity.class);
         startActivity(intent);
     }
 
