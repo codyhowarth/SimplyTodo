@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import com.codyhowarth.simplytodo.TodoList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +17,14 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 
+    public static TodoList tdList = new TodoList();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do_list);
+        tdList.loadList(this);
+
 
         // Set the 'up' button on the action bar
         //getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -32,6 +37,11 @@ public class MainActivity extends ActionBarActivity {
 
         ListView lv = (ListView) findViewById(R.id.todolistview);
         lv.setAdapter(new InteractiveArrayAdapter(this, getModel()));
+    }
+
+    @Override
+    protected void onDestroy() {
+        tdList.saveList(this);
     }
 
     @Override
@@ -62,71 +72,16 @@ public class MainActivity extends ActionBarActivity {
 
     private List<Model> getModel() {
         List<Model> list = new ArrayList<Model>();
-        list.add(get("Linux"));
-        list.add(get("Windows7"));
-        list.add(get("Suse"));
-        list.add(get("Eclipse"));
-        list.add(get("Ubuntu"));
-        list.add(get("Solaris"));
-        list.add(get("Android"));
-        list.add(get("iPhone"));
-        list.add(get("Linux"));
-        list.add(get("Windows7"));
-        list.add(get("Suse"));
-        list.add(get("Eclipse"));
-        list.add(get("Ubuntu"));
-        list.add(get("Solaris"));
-        list.add(get("Android"));
-        list.add(get("iPhone"));
-        list.add(get("Linux"));
-        list.add(get("Windows7"));
-        list.add(get("Suse"));
-        list.add(get("Eclipse"));
-        list.add(get("Ubuntu"));
-        list.add(get("Solaris"));
-        list.add(get("Android"));
-        list.add(get("iPhone"));
-        list.add(get("Linux"));
-        list.add(get("Windows7"));
-        list.add(get("Suse"));
-        list.add(get("Eclipse"));
-        list.add(get("Ubuntu"));
-        list.add(get("Solaris"));
-        list.add(get("Android"));
-        list.add(get("iPhone"));
-        list.add(get("Linux"));
-        list.add(get("Windows7"));
-        list.add(get("Suse"));
-        list.add(get("Eclipse"));
-        list.add(get("Ubuntu"));
-        list.add(get("Solaris"));
-        list.add(get("Android"));
-        list.add(get("iPhone"));
-        list.add(get("Linux"));
-        list.add(get("Windows7"));
-        list.add(get("Suse"));
-        list.add(get("Eclipse"));
-        list.add(get("Ubuntu"));
-        list.add(get("Solaris"));
-        list.add(get("Android"));
-        list.add(get("iPhone"));
-        list.add(get("Linux"));
-        list.add(get("Windows7"));
-        list.add(get("Suse"));
-        list.add(get("Eclipse"));
-        list.add(get("Ubuntu"));
-        list.add(get("Solaris"));
-        list.add(get("Android"));
-        list.add(get("iPhone"));
+
+        for (TodoItem item : tdList.tdList) {
+            Model tempModel = new Model(item.getText());
+            list.add(tempModel);
+        }
+
         // Initially select one of the items
-        list.get(1).setSelected(true);
+        //list.get(1).setSelected(true);
         return list;
     }
-
-    private Model get(String s) {
-        return new Model(s);
-    }
-
     // Override the back button so it doesn't go back to adding a todoitem
     @Override
     public void onBackPressed() {

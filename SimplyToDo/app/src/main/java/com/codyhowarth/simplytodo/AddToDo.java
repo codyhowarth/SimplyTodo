@@ -145,45 +145,28 @@ public class AddToDo extends FragmentActivity {
         //Get Info to save
         EditText edittext_todoitem = (EditText) findViewById(R.id.editText1);
         String todoStr = edittext_todoitem.getText().toString();
-        todoStr = todoStr + ":";
-
         String due_date;
 
         if (!date_chosen) {
-            due_date = "|";
+            due_date = "";
         } else {
-            Calendar input_date = new GregorianCalendar(input_year, input_month, input_day, input_hour, input_minute);
+            Calendar input_date = new GregorianCalendar(input_year, input_month, input_day,
+                                                        input_hour, input_minute);
             Date time = input_date.getTime();
             due_date = DateFormat.getDateTimeInstance().format(time);
-            due_date = due_date + "|";
         }
 
-
-        // Save TodoItem to file
-        // 2 Cases: Files exists, file doesn't yet exist
-
-        String saveFilename = "ToDoListItems";
-       // File saveFile = new File(this.getFilesDir(), saveFilename);
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = openFileOutput(saveFilename, this.MODE_APPEND | this.MODE_PRIVATE);
-            outputStream.write(todoStr.getBytes());
-            outputStream.write(due_date.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Create and add todoitem
+        TodoItem newtdItem = new TodoItem(todoStr, due_date);
+        MainActivity.tdList.addItem(newtdItem);
 
 
-
-
-
+        // Switch back to the main
         Intent intent = new Intent(AddToDo.this, MainActivity.class);
         startActivity(intent);
     }
 
-    // Override the back button so it doesn't go back to adding a todo item
+    // Override the back button so it doesn't go back to adding a todoitem
     @Override
     public void onBackPressed() {
     }

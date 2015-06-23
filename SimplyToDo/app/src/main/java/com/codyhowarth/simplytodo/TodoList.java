@@ -1,6 +1,7 @@
 package com.codyhowarth.simplytodo;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -23,57 +24,13 @@ import java.util.ArrayList;
 public class TodoList {
 
     public static final String saveFilename = "ToDoListItems";
-    private ArrayList<todoItem> tdList;
-
+    public ArrayList<TodoItem> tdList;
 
     public TodoList(){
-        tdList = new ArrayList<todoItem>();
+        tdList = new ArrayList<>();
     }
 
-
-    // Small class to handle individual todolist items
-    public class todoItem {
-
-        String text, date;
-
-        public todoItem (String text, String date){
-
-            if (date.equals("")) {
-                this.date = null;
-            } else {
-                this.date = date;
-            }
-
-            this.text = text;
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public void setDate(String date) {
-            this.date = date;
-        }
-
-        @Override
-        public String toString() {
-            return "todoItem{" +
-                    "text='" + text + '\'' +
-                    ", date='" + date + '\'' +
-                    '}';
-        }
-    }
-
-
-    public void addItem(todoItem item_to_add) {
+    public void addItem(TodoItem item_to_add) {
         tdList.add(item_to_add);
     }
 
@@ -82,13 +39,12 @@ public class TodoList {
 //        // of the terms match items in the todolist
 //    }
 
-
     @Override
     public String toString() {
         String todolistStr = "";
 
         // Iterate through and populate the string
-        for (todoItem item : tdList) {
+        for (TodoItem item : tdList) {
             todolistStr = todolistStr + item.toString() + "|";
         }
 
@@ -115,7 +71,7 @@ public class TodoList {
     }
 
     /*
-    * Saves a TodoItem object as a String to a file
+    * Loads a TodoItem object as a String to a file
     * */
     public void loadList(Context context) {
         // Load TodoItem object from file
@@ -135,13 +91,25 @@ public class TodoList {
             }
 
             todolistStr = out.toString();
+            System.out.println(todolistStr);
+
+            // #1 Split into items
+            String[] items = todolistStr.split("\\|"); // item array
+
+            // #2 Split each item into text, date. Create a new todoitem using the text and date
+            for (String item : items ) {
+                System.out.println(item);
+                String[] text_and_date = item.split("\\:");
+                TodoItem newItem = new TodoItem(text_and_date[0], text_and_date[1]);
+
+                // #3 Append todoitem to todolist object.
+                if (!tdList.contains(newItem)) {
+                    tdList.add(newItem);
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // TODO parse the loaded string into todoitems and populate the todolist object
-
-
     }
 }
