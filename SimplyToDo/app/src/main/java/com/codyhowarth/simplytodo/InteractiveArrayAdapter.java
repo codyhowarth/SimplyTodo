@@ -4,6 +4,7 @@ package com.codyhowarth.simplytodo;
  * Created by cody on 6/18/15.
  */
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,8 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+
+
         View view = null;
 
         if (convertView == null) {
@@ -57,6 +60,8 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
             view.setTag(viewHolder);
             viewHolder.checkbox.setTag(list.get(position));
 
+
+
         } else {
 
             view = convertView;
@@ -67,6 +72,28 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
         ViewHolder holder = (ViewHolder) view.getTag();
         holder.text.setText(list.get(position).getName());
         holder.checkbox.setChecked(list.get(position).isSelected());
+
         return view;
     }
+
+//    @Override
+//    public boolean isEnabled(int position)
+//    {
+//        return true;
+//    }
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+

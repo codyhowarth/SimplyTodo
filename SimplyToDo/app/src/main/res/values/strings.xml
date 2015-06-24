@@ -13,5 +13,6 @@
     <string name="What_time">When should this be done by? (Optional)</string>
     <string name="Duedate">Due date:</string>
     <string name="title_activity_main_activity_alternate">MainActivityAlternate</string>
+    <string name="menu_delete">Delete item!?!</string>
 
 </resources>

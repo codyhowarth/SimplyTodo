@@ -9,6 +9,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +30,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 
-public class AddToDo extends FragmentActivity {
+public class AddToDo extends ActionBarActivity {
 
     public static int input_hour;
     public static int input_minute;
@@ -48,27 +49,28 @@ public class AddToDo extends FragmentActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_to_do, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_add_to_do, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        super.onOptionsItemSelected(item);
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
@@ -169,6 +171,20 @@ public class AddToDo extends FragmentActivity {
     // Override the back button so it doesn't go back to adding a todoitem
     @Override
     public void onBackPressed() {
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d("MY APP LOG:", "App stopped");
+
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d("MY APP LOG:", "App destoryed");
+
+        super.onDestroy();
     }
 
 

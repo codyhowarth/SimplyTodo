@@ -11,5 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/todolistview"
         android:layout_alignParentTop="true"
+        android:clickable="true"
+        android:choiceMode="multipleChoiceModal"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
