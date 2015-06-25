@@ -1,33 +1,34 @@
 package com.codyhowarth.simplytodo;
 
 
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-
 import android.widget.AbsListView;
-import android.widget.AdapterView;
-
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     public static TodoList tdList = new TodoList();
+    public static TodoList complete_list = new TodoList();
     private ListView listView;
+    private ArrayAdapter arrayAdapter;
     private ActionMode mActionMode;
-    private List<Model> model_list = new ArrayList<Model>();
+    private List<Model> model_list = new ArrayList<>();
 
     @Override
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do_list);
@@ -35,48 +36,10 @@ public class MainActivity extends ActionBarActivity {
 
 
         listView = (ListView) findViewById(R.id.todolistview);
-        listView.setAdapter(new InteractiveArrayAdapter(this, getModel(model_list)));
-
-//        final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-//
-//            // Called when the action mode is created; startActionMode() was called
-//            @Override
-//            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-//                // Inflate a menu resource providing context menu items
-//                MenuInflater inflater = mode.getMenuInflater();
-//                inflater.inflate(R.menu.context_main, menu);
-//                return true;
-//            }
-//
-//            // Called each time the action mode is shown. Always called after onCreateActionMode, but
-//            // may be called multiple times if the mode is invalidated.
-//            @Override
-//            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-//                return false; // Return false if nothing is done
-//            }
-//
-//            // Called when the user selects a contextual menu item
-//            @Override
-//            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-//                switch (item.getItemId()) {
-//                    case R.id.menu_delete:
-//                        System.out.println("DELETE ITEM METHOD CALL");
-//                        mode.finish(); // Action picked, so close the CAB
-//                        return true;
-//                    default:
-//                        return false;
-//                }
-//            }
-//
-//            // Called when the user exits the action mode
-//            @Override
-//            public void onDestroyActionMode(ActionMode mode) {
-//                mActionMode = null;
-//            }
-//        };
+        arrayAdapter = new InteractiveArrayAdapter(this, getModel(model_list));
+        listView.setAdapter(arrayAdapter);
 
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-
         listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
 
             @Override
@@ -85,14 +48,6 @@ public class MainActivity extends ActionBarActivity {
                 // Here you can do something when items are selected/de-selected,
                 // such as update the title in the CAB
                 model_list.get(position).setToDelete(checked);
-
-
-                System.out.println("This is the int position value passed in : " + position + "\n");
-                System.out.println("This is the item of tdlist at that postion" + tdList.tdList.get(position).toString() + "\n");
-
-
-                System.out.println("This is the long id value: " + id + "\n");
-                System.out.println("This is the boolean checked value: " + checked + "\n");
             }
 
             @Override
@@ -130,34 +85,23 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                System.out.println("Click WORKED!");
-//
-////                if (mActionMode != null) {
-////                    return false;
-////                }
-//
-//                // Start the CAB using the ActionMode.Callback defined above
-//                mActionMode = MainActivity.this.startActionMode(mActionModeCallback);
-//                view.setSelected(true);
-//                //return true;
-//
-//            }
-//        });
+    }
+
+    protected void onResume() {
+        super.onResume();
+        arrayAdapter.notifyDataSetChanged();
     }
 
     // Method called from the CAB to delete todolist items
     private void deleteSelectedItems() {
 
-        System.out.println("deleteSelectedItems method has been called");
-
-        List<Model> model_list_removals = new ArrayList<Model>();
-        List<TodoItem> tdlist_removals = new ArrayList<TodoItem>();
+        // Make copies of the todolist and the modellist so that they can be modified accordingly
+        List<Model> model_list_removals = new ArrayList<>();
+        List<TodoItem> tdlist_removals = new ArrayList<>();
 
         int i = 0;
 
+        // Iterate through and create removal lists based on user's selection(s)
         for (Model item: model_list) {
             if (model_list.get(i).isToDelete()) {
                 model_list_removals.add(item);
@@ -175,8 +119,60 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        tdList.saveList(this);
+        tdList.saveList(this); // Save list here if something happens.
     }
+
+    // Checks if any boxes are checked, if yes; remove those items from the model current
+    // tdlist but not before saving them completed_list
+    protected void onPause() {
+        super.onPause();
+        // Make copies of the todolist and the modellist so that they can be modified accordingly
+        List<Model> model_list_removals = new ArrayList<>();
+        ArrayList<TodoItem> tdlist_removals = new ArrayList<>();
+
+        int i = 0;
+
+        // Iterate through and create removal lists based on user's selection(s)
+        for (Model item: model_list) {
+            if (model_list.get(i).isSelected()) {
+                model_list_removals.add(item);
+                tdlist_removals.add(tdList.tdList.get(i));
+            }
+            i++;
+        }
+
+        complete_list.tdList = tdlist_removals;
+        model_list.removeAll(model_list_removals);
+        tdList.tdList.removeAll(tdlist_removals);
+
+        tdList.saveList(this); // Save list here if something happens.
+    }
+
+    // Checks if any boxes are checked, if yes; remove those items from the model current
+    // tdlist but not before saving them completed_list
+//    protected void onStop() {
+//        super.onStop();
+//        // Make copies of the todolist and the modellist so that they can be modified accordingly
+//        List<Model> model_list_removals = new ArrayList<Model>();
+//        ArrayList<TodoItem> tdlist_removals = new ArrayList<TodoItem>();
+//
+//        int i = 0;
+//
+//        // Iterate through and create removal lists based on user's selection(s)
+//        for (Model item: model_list) {
+//            if (model_list.get(i).isSelected()) {
+//                model_list_removals.add(item);
+//                tdlist_removals.add(tdList.tdList.get(i));
+//            }
+//            i++;
+//        }
+//
+//        complete_list.tdList = tdlist_removals;
+//        model_list.removeAll(model_list_removals);
+//        tdList.tdList.removeAll(tdlist_removals);
+//
+//        tdList.saveList(this); // Save list here if something happens.
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -202,6 +198,8 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+
+    // Returns a model built from the todolist object
     private List<Model> getModel(List<Model> model_list) {
 
 
@@ -217,8 +215,7 @@ public class MainActivity extends ActionBarActivity {
 
     // Override the back button so it doesn't go back to adding a todoitem
     @Override
-    public void onBackPressed() {
-    }
+    public void onBackPressed() {}
 
 
 }

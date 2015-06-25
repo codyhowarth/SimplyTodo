@@ -30,7 +30,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 
-public class AddToDo extends ActionBarActivity {
+public class AddToDo extends Activity {
 
     public static int input_hour;
     public static int input_minute;

@@ -8,5 +8,6 @@
         android:orderInCategory="99" app:showAsAction="never" />
     <item android:id="@+id/action_add" android:title="@string/action_add"
         android:icon="@drawable/plussign"
-        android:orderInCategory="98" app:showAsAction="ifRoom" />
+        android:showAsAction="always"
+        android:orderInCategory="98" />
 </menu>
