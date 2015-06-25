@@ -25,6 +25,7 @@ public class MainActivity extends ActionBarActivity {
     public static TodoList tdList = new TodoList();
     private ListView listView;
     private ActionMode mActionMode;
+    private List<Model> model_list = new ArrayList<Model>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class MainActivity extends ActionBarActivity {
 
 
         listView = (ListView) findViewById(R.id.todolistview);
-        listView.setAdapter(new InteractiveArrayAdapter(this, getModel()));
+        listView.setAdapter(new InteractiveArrayAdapter(this, getModel(model_list)));
 
 //        final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 //
@@ -83,6 +84,15 @@ public class MainActivity extends ActionBarActivity {
                                                   long id, boolean checked) {
                 // Here you can do something when items are selected/de-selected,
                 // such as update the title in the CAB
+                model_list.get(position).setToDelete(checked);
+
+
+                System.out.println("This is the int position value passed in : " + position + "\n");
+                System.out.println("This is the item of tdlist at that postion" + tdList.tdList.get(position).toString() + "\n");
+
+
+                System.out.println("This is the long id value: " + id + "\n");
+                System.out.println("This is the boolean checked value: " + checked + "\n");
             }
 
             @Override
@@ -141,6 +151,24 @@ public class MainActivity extends ActionBarActivity {
     // Method called from the CAB to delete todolist items
     private void deleteSelectedItems() {
 
+        System.out.println("deleteSelectedItems method has been called");
+
+        List<Model> model_list_removals = new ArrayList<Model>();
+        List<TodoItem> tdlist_removals = new ArrayList<TodoItem>();
+
+        int i = 0;
+
+        for (Model item: model_list) {
+            if (model_list.get(i).isToDelete()) {
+                model_list_removals.add(item);
+                tdlist_removals.add(tdList.tdList.get(i));
+            }
+            i++;
+        }
+
+        model_list.removeAll(model_list_removals);
+        tdList.tdList.removeAll(tdlist_removals);
+
 
     }
 
@@ -174,17 +202,17 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    private List<Model> getModel() {
-        List<Model> list = new ArrayList<Model>();
+    private List<Model> getModel(List<Model> model_list) {
+
 
         for (TodoItem item : tdList.tdList) {
             Model tempModel = new Model(item.getText());
-            list.add(tempModel);
+            model_list.add(tempModel);
         }
 
         // Initially select one of the items
         //list.get(1).setSelected(true);
-        return list;
+        return model_list;
     }
 
     // Override the back button so it doesn't go back to adding a todoitem

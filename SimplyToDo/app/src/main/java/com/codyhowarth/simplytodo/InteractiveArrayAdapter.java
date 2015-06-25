@@ -35,14 +35,22 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
 
-
+        // Resets the view to null
         View view = null;
 
+        // Avoids initializing the view every time (helps with smooth-scrolling)
         if (convertView == null) {
 
+            // Instantiates a new LayoutInflater object using the current context
             LayoutInflater inflator = context.getLayoutInflater();
+
+            // Sets the view to the todoitem_layout
             view = inflator.inflate(R.layout.todoitem_layout, null);
+
+            // Instantiates a new viewHolder
             final ViewHolder viewHolder = new ViewHolder();
+
+            // Sets up the textview, checkbox elements of the viewHolder (variables defined in static class)
             viewHolder.text = (TextView) view.findViewById(R.id.todotextview);
             viewHolder.checkbox = (CheckBox) view.findViewById(R.id.todocheckbox);
             viewHolder.checkbox
@@ -62,7 +70,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
 
 
 
-        } else {
+        } else { // The view has already been set (and saved in convertView
 
             view = convertView;
             ((ViewHolder) view.getTag()).checkbox.setTag(list.get(position));
@@ -75,22 +83,6 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
 
         return view;
     }
-
-//    @Override
-//    public boolean isEnabled(int position)
-//    {
-//        return true;
-//    }
-
-
-
-
-
-
-
-
-
-
 
 }
 

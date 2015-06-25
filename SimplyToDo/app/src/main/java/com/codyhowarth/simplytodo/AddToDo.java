@@ -161,6 +161,8 @@ public class AddToDo extends ActionBarActivity {
         // Create and add todoitem
         TodoItem newtdItem = new TodoItem(todoStr, due_date);
         MainActivity.tdList.addItem(newtdItem);
+        System.out.println("This is what is getting saved: " + MainActivity.tdList.toString());
+        MainActivity.tdList.saveList(this);
 
 
         // Switch back to the main

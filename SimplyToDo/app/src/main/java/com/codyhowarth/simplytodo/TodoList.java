@@ -34,10 +34,13 @@ public class TodoList {
         tdList.add(item_to_add);
     }
 
-//    public todoItem search(String search_text) {
-//        // Turn search_text string into an array and search through the TodoList to see if any
-//        // of the terms match items in the todolist
-//    }
+    public void deleteItem(TodoItem item_to_delete) {
+        tdList.remove(item_to_delete);
+            }
+
+    public void remove(int index) {
+        tdList.remove(index);
+    }
 
     @Override
     public String toString() {
@@ -60,8 +63,7 @@ public class TodoList {
         FileOutputStream outputStream;
 
         try {
-            outputStream = context.getApplicationContext().openFileOutput(saveFilename,
-                    context.MODE_APPEND | context.MODE_PRIVATE);
+            outputStream = context.getApplicationContext().openFileOutput(saveFilename, context.MODE_PRIVATE);
 
             outputStream.write(this.toString().getBytes());
             outputStream.close();
@@ -91,7 +93,6 @@ public class TodoList {
             }
 
             todolistStr = out.toString();
-            System.out.println(todolistStr);
 
             // #1 Split into items
             String[] items = todolistStr.split("\\|"); // item array
@@ -103,7 +104,7 @@ public class TodoList {
                 TodoItem newItem = new TodoItem(text_and_date[0], text_and_date[1]);
 
                 // #3 Append todoitem to todolist object.
-                if (!tdList.contains(newItem)) {
+                if (!(tdList.contains(newItem))) {
                     tdList.add(newItem);
                 }
             }
