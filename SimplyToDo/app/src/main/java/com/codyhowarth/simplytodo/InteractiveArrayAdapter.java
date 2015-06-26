@@ -2,6 +2,8 @@ package com.codyhowarth.simplytodo;
 
 /**
  * Created by cody on 6/18/15.
+ *
+ * An ArrayAdapter class to handle populating the listview with backend data
  */
 import android.app.Activity;
 import android.graphics.Color;
@@ -27,13 +29,13 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
     }
 
     static class ViewHolder {
-        protected TextView text;
+        protected TextView text, date;
         protected CheckBox checkbox;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
+        // TODO create a different viewgroup/viewholder return for when date is present
 
         // Resets the view to null
         View view = null;
@@ -52,6 +54,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
 
             // Sets up the textview, checkbox elements of the viewHolder (variables defined in static class)
             viewHolder.text = (TextView) view.findViewById(R.id.todotextview);
+            viewHolder.date = (TextView) view.findViewById(R.id.datetextview);
             viewHolder.checkbox = (CheckBox) view.findViewById(R.id.todocheckbox);
             viewHolder.checkbox
                     .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -77,8 +80,13 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
         }
 
 
+        // Sets the items in the holder to be the actual values
         ViewHolder holder = (ViewHolder) view.getTag();
         holder.text.setText(list.get(position).getName());
+        holder.date.setText(list.get(position).getDate());
+
+        if (holder.date.getText().equals("")) holder.date.setVisibility(view.GONE);
+
         holder.checkbox.setChecked(list.get(position).isSelected());
 
         return view;

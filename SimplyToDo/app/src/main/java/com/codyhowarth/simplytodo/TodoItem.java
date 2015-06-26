@@ -68,5 +68,5 @@ public class TodoItem {
 //    }
 
     @Override
-    public String toString() { return text + ":" + date; }
+    public String toString() { return text + "~" + date; }
 }

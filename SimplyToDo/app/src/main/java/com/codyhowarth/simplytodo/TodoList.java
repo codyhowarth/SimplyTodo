@@ -100,8 +100,12 @@ public class TodoList {
             // #2 Split each item into text, date. Create a new todoitem using the text and date
             for (String item : items ) {
                 System.out.println(item);
-                String[] text_and_date = item.split("\\:");
+                String[] text_and_date = item.split("\\~");
                 TodoItem newItem = new TodoItem(text_and_date[0], text_and_date[1]);
+
+                System.out.println("This is the text_and_date[1] value: " + text_and_date[1]);
+
+                System.out.println("This is the newitem getDate()" + newItem.getDate());
 
                 // #3 Append todoitem to todolist object.
                 if (!(tdList.contains(newItem))) {

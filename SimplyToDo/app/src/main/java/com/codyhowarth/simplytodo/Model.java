@@ -3,14 +3,28 @@ package com.codyhowarth.simplytodo;
 
 public class Model {
 
-    private String name;
+    private String name, date;
     private boolean selected;
     private boolean toDelete;
 
-    public Model(String name) {
+    public Model(String name, String date) {
+        if (date.equals("null")) {
+            this.date = "";
+        } else {
+            this.date = date;
+        }
+
         this.name = name;
         selected = false;
         toDelete = false;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getName() {

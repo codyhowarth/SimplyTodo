@@ -204,7 +204,7 @@ public class MainActivity extends Activity {
 
 
         for (TodoItem item : tdList.tdList) {
-            Model tempModel = new Model(item.getText());
+            Model tempModel = new Model(item.getText(), item.getDate());
             model_list.add(tempModel);
         }
 
