@@ -9,7 +9,7 @@
     <TextView android:text="@string/What_should" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/editText1"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/What_time"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_marginBottom="7dp"
         android:layout_below="@+id/editText1"
         android:layout_alignParentLeft="true"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:text="@string/Duedate"
         android:id="@+id/textView"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_marginBottom="7dp"
         android:layout_below="@+id/button"
         android:layout_alignParentLeft="true"
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:textSize="15dp" />
+        android:textSize="15sp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

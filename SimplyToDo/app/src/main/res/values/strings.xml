@@ -17,5 +17,6 @@
     <string name="title_activity_complete_list">Completed Tasks</string>
     <string name="add_change_button">Add/Change Due Date</string>
     <string name="create_todo_button">Create Todo Item</string>
+    <string name="to_be_done">To be done by: </string>
 
 </resources>
