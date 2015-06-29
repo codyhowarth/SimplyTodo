@@ -28,8 +28,30 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
         this.list = list;
     }
 
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        String dateToCheck = list.get(position).getDate().toString();
+
+        if (dateToCheck.equals("")) {
+            return 0; // matches R.layout.todoitem_notdate_layout
+        }
+        else {
+            return 1; // matches R.layout.todoitem_layout
+        }
+    }
+
     static class ViewHolder {
         protected TextView text, date;
+        protected CheckBox checkbox;
+    }
+
+    static class ViewHolder2 {
+        protected TextView text;
         protected CheckBox checkbox;
     }
 
@@ -40,52 +62,90 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
         // Resets the view to null
         View view = null;
 
+        int itemtype = getItemViewType(position);
+
         // Avoids initializing the view every time (helps with smooth-scrolling)
         if (convertView == null) {
 
-            // Instantiates a new LayoutInflater object using the current context
-            LayoutInflater inflator = context.getLayoutInflater();
+            if (itemtype == 1) {
 
-            // Sets the view to the todoitem_layout
-            view = inflator.inflate(R.layout.todoitem_layout, null);
+                // Instantiates a new LayoutInflater object using the current context
+                LayoutInflater inflator = context.getLayoutInflater();
 
-            // Instantiates a new viewHolder
-            final ViewHolder viewHolder = new ViewHolder();
+                // Sets the view to the todoitem_layout
+                view = inflator.inflate(R.layout.todoitem_layout, null);
 
-            // Sets up the textview, checkbox elements of the viewHolder (variables defined in static class)
-            viewHolder.text = (TextView) view.findViewById(R.id.todotextview);
-            viewHolder.date = (TextView) view.findViewById(R.id.datetextview);
-            viewHolder.checkbox = (CheckBox) view.findViewById(R.id.todocheckbox);
-            viewHolder.checkbox
-                    .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                // Instantiates a new viewHolder
+                final ViewHolder viewHolder = new ViewHolder();
 
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView,
-                                                     boolean isChecked) {
-                            Model element = (Model) viewHolder.checkbox
-                                    .getTag();
-                            element.setSelected(buttonView.isChecked());
+                // Sets up the textview, checkbox elements of the viewHolder (variables defined in static class)
+                viewHolder.text = (TextView) view.findViewById(R.id.todotextview);
+                viewHolder.date = (TextView) view.findViewById(R.id.datetextview);
+                viewHolder.checkbox = (CheckBox) view.findViewById(R.id.todocheckbox);
+                viewHolder.checkbox
+                        .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-                        }
-                    });
-            view.setTag(viewHolder);
-            viewHolder.checkbox.setTag(list.get(position));
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView,
+                                                         boolean isChecked) {
+                                Model element = (Model) viewHolder.checkbox
+                                        .getTag();
+                                element.setSelected(buttonView.isChecked());
 
+                            }
+                        });
+                view.setTag(viewHolder);
+                viewHolder.checkbox.setTag(list.get(position));
+
+            } else {
+
+                // Instantiates a new LayoutInflater object using the current context
+                LayoutInflater inflator = context.getLayoutInflater();
+
+                // Sets the view to the todoitem_layout
+                view = inflator.inflate(R.layout.todoitem_nodate_layout, null);
+
+                // Instantiates a new viewHolder
+                final ViewHolder viewHolder = new ViewHolder();
+
+                // Sets up the textview, checkbox elements of the viewHolder (variables defined in static class)
+                viewHolder.text = (TextView) view.findViewById(R.id.todotextview);
+                viewHolder.checkbox = (CheckBox) view.findViewById(R.id.todocheckbox);
+                viewHolder.checkbox
+                        .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView,
+                                                         boolean isChecked) {
+                                Model element = (Model) viewHolder.checkbox
+                                        .getTag();
+                                element.setSelected(buttonView.isChecked());
+
+                            }
+                        });
+                view.setTag(viewHolder);
+                viewHolder.checkbox.setTag(list.get(position));
+            }
 
 
         } else { // The view has already been set (and saved in convertView
 
             view = convertView;
             ((ViewHolder) view.getTag()).checkbox.setTag(list.get(position));
+
         }
 
 
         // Sets the items in the holder to be the actual values
         ViewHolder holder = (ViewHolder) view.getTag();
-        holder.text.setText(list.get(position).getName());
-        holder.date.setText(list.get(position).getDate());
 
-        if (holder.date.getText().equals("")) holder.date.setVisibility(view.GONE);
+        if (itemtype == 1) {
+            holder.text.setText(list.get(position).getName());
+            holder.date.setText(list.get(position).getDate());
+        } else {
+            holder.text.setText(list.get(position).getName());
+        }
+       // if (holder.date.getText().equals("")) holder.date.setVisibility(view.GONE);
 
         holder.checkbox.setChecked(list.get(position).isSelected());
 

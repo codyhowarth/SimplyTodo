@@ -20,7 +20,6 @@ import java.util.ArrayList;
  * A sorting method could also be written.
  *
  */
-
 public class TodoList {
 
     public String saveFilename;
