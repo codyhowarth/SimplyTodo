@@ -23,10 +23,11 @@ import java.util.ArrayList;
 
 public class TodoList {
 
-    public static final String saveFilename = "ToDoListItems";
+    public String saveFilename;
     public ArrayList<TodoItem> tdList;
 
-    public TodoList(){
+    public TodoList(String savefilename){
+        this.saveFilename = savefilename;
         tdList = new ArrayList<>();
     }
 

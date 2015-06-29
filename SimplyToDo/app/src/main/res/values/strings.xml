@@ -8,11 +8,14 @@
     <string name="title_activity_to_do_list">ToDoList</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_add_to_do">AddToDo</string>
-    <string name="What_should">What should you be doing right now?</string>
+    <string name="title_activity_add_to_do">Add ToDo Item</string>
+    <string name="What_should">What do you need to do?</string>
     <string name="What_time">When should this be done by? (Optional)</string>
     <string name="Duedate">Due date:</string>
     <string name="title_activity_main_activity_alternate">MainActivityAlternate</string>
     <string name="menu_delete">Delete item!?!</string>
+    <string name="title_activity_complete_list">Completed Tasks</string>
+    <string name="add_change_button">Add/Change Due Date</string>
+    <string name="create_todo_button">Create Todo Item</string>
 
 </resources>

@@ -21,26 +21,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/todotextview"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:textSize="15dp"
         android:gravity="right"
-        android:layout_toRightOf="@+id/todocheckbox"
+        android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/todocheckbox"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toRightOf="@+id/todocheckbox" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/datetextview"
-        android:textSize="10dp"
-        android:gravity="right"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/todocheckbox"
-        android:layout_toEndOf="@+id/todocheckbox"
-        android:layout_below="@+id/todotextview" />
 </RelativeLayout>

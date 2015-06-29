@@ -12,22 +12,25 @@
         android:textSize="20dp" />
 
     <EditText
+        android:id="@+id/editText1"
+        android:maxLines="9"
+        android:digits="!#$%'()*+,-./0123456789;=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{}&lt; &gt; &amp; "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText1"
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_alignEnd="@+id/textView2" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/What_time"
-        android:id="@+id/textView3"
         android:textSize="18dp"
+        android:layout_marginBottom="7dp"
         android:layout_below="@+id/editText1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -35,10 +38,10 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add due date"
-        android:id="@+id/button"
+        android:text="@string/add_change_button"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
         android:onClick="showTimePickerDialog" />
@@ -49,24 +52,26 @@
         android:text="@string/Duedate"
         android:id="@+id/textView"
         android:textSize="18dp"
+        android:layout_marginBottom="7dp"
         android:layout_below="@+id/button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="32dp" />
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView4"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textSize="15dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Todo Item"
-        android:id="@+id/button2"
+        android:text="@string/create_todo_button"
         android:onClick="gotoListView"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />

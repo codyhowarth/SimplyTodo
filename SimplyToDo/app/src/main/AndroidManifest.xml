@@ -18,9 +18,13 @@
         </activity>
         <activity
             android:name=".AddToDo"
-            android:parentActivityName=".MainActivity"
-            android:label="@string/title_activity_add_to_do" >
-
+            android:label="@string/title_activity_add_to_do"
+            android:parentActivityName=".MainActivity" >
+        </activity>
+        <activity
+            android:name=".CompleteList"
+            android:label="@string/title_activity_complete_list"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 
