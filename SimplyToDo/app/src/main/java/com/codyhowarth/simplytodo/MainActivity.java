@@ -28,6 +28,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do_list);
+        new SimpleEula(this).show();
+
         tdList.loadList(this);
         complete_list.loadList(this);
 
