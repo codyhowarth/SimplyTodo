@@ -10,7 +10,8 @@
 
     <string name="ok">Yes</string>
     <string name="cancel">No</string>
-    <string name="dialog_message">Are you sure you want to clear all of the completed items?</string>
+    <string name="dialog_title">Erase all completed items?</string>
+    <string name="dialog_message">The completed items will be permanently deleted!</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_add_to_do">Add ToDo Item</string>
