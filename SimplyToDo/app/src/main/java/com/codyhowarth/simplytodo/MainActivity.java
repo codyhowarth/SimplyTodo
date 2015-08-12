@@ -154,6 +154,7 @@ public class MainActivity extends Activity {
         }
 
         complete_list.saveList(this);
+        tdList.saveList(this);
     }
 
     @Override
