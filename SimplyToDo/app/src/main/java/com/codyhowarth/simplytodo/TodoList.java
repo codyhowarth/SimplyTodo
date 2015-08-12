@@ -38,6 +38,11 @@ public class TodoList {
         tdList.remove(item_to_delete);
             }
 
+    /**
+     * Clears the todolist
+     */
+    public void clearList(){ tdList.clear();}
+
     public void remove(int index) {
         tdList.remove(index);
     }

@@ -1,6 +1,9 @@
 package com.codyhowarth.simplytodo;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ActionMode;
@@ -21,8 +24,6 @@ public class CompleteList extends Activity {
     private List<Model> complete_model_list = new ArrayList<>();
 
     @Override
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_list);
@@ -42,7 +43,7 @@ public class CompleteList extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_complete_list, menu);
         return (super.onCreateOptionsMenu(menu));
     }
 
@@ -51,16 +52,45 @@ public class CompleteList extends Activity {
 
         // Handle presses on the action bar items
         switch (item.getItemId()) {
-            case R.id.action_add:
-                Intent intent = new Intent(this, AddToDo.class);
-                startActivity(intent);
+            case R.id.action_clear:
+                generateClearAlert();
                 return true;
-            case R.id.action_settings:
-                //openSettings();
-                return true;
+//            case R.id.action_settings:
+//                //openSettings();
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void clearItems(){
+        MainActivity.complete_list.clearList();
+        MainActivity.complete_list.saveList(this);
+        this.recreate();
+    }
+
+    private void generateClearAlert(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+                clearItems();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+            }
+        });
+        // Set other dialog properties
+        builder.setMessage(R.string.dialog_message);
+
+
+
+        // Create the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 
