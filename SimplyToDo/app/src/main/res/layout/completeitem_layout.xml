@@ -35,4 +35,16 @@
         android:layout_alignParentEnd="true"
 
         android:layout_below="@+id/todoCompletetextview" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/completed_on"
+        android:id="@+id/textView5"
+        android:textSize="10sp"
+        android:gravity="right"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/todoCompletetextview"
+        android:layout_toLeftOf="@+id/dateCompletetextview"/>
 </RelativeLayout>

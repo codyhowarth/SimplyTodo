@@ -15,6 +15,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
@@ -56,7 +58,7 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
 
         // Resets the view to null
@@ -92,6 +94,13 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
                                         .getTag();
                                 element.setSelected(buttonView.isChecked());
 
+                                if (isChecked) {
+                                    Calendar c = Calendar.getInstance();
+                                    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                                    String formattedDate = df.format(c.getTime());
+                                    MainActivity.tdList.tdList.get(position).setDate(formattedDate);
+                                }
+
                             }
                         });
                 view.setTag(viewHolder);
@@ -120,6 +129,13 @@ public class InteractiveArrayAdapter extends ArrayAdapter<Model> {
                                 Model element = (Model) viewHolder.checkbox
                                         .getTag();
                                 element.setSelected(buttonView.isChecked());
+
+                                if (isChecked) {
+                                    Calendar c = Calendar.getInstance();
+                                    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                                    String formattedDate = df.format(c.getTime());
+                                    MainActivity.tdList.tdList.get(position).setDate(formattedDate);
+                                }
 
                             }
                         });
