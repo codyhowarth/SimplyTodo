@@ -84,6 +84,7 @@ public class CompleteList extends Activity {
             }
         });
         // Set other dialog properties
+        builder.setIcon(R.drawable.ic_delete_black_48dp);
         builder.setTitle(R.string.dialog_title);
         builder.setMessage(R.string.dialog_message);
 
